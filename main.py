@@ -9,9 +9,9 @@ import json
 
 dotenv.load_dotenv()
 
-# if (os.environ['PARSE_TIMETABLE'] != "1"):
-#     print("NO PARSING")
-#     exit()
+if (os.environ['PARSE_TIMETABLE'] != "1"):
+    print("NO PARSING")
+    exit()
 
 print("PARSING", flush=True)
 login = os.getenv("POSTGRES_LOGIN")

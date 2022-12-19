@@ -103,7 +103,8 @@ def parse_session_timetable(sheet: Worksheet)->List[Session]:
         data = sheet.cell(row, 3).value
         if data != None:
             # print(dt, data.replace('\n', ' '))
-            exams[date] = data.replace('\n', ' ')
+            date = date.split(" ")[1]
+            exams[date] = data.replace('\n', ' ')[:len(data)//2]
     ret.append(Session(addition, exams))
     return ret
             

@@ -15,7 +15,7 @@ def parse_table_groups() -> List[Group]:
     facultys = tree.xpath('.//div[@class = "content"]/div/a')
     groups = []
 
-    for faculty in facultys:
+    for faculty in facultys[:]:
         print(faculty.get('href'), faculty.text_content(), flush=True)
         faculty_url = url + faculty.get('href')
 
@@ -33,7 +33,7 @@ def parse_directions(faculty_url) -> List[Group]:
         './/div[@class = "content"]/div[@style = "padding:3px 5px 3px 25px"]/a')
     groups = []
 
-    for direction in directions:
+    for direction in directions[:]:
         # print(direction.get('href'), direction.text_content())
         direction_url = url+direction.get('href')
         for gr in parse_groups(direction_url):
