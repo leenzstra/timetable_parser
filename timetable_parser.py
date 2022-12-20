@@ -87,9 +87,12 @@ def parse_regular_timetable(sheet: Worksheet)-> List[TimetableDay]:
     week = []
     cur_start_row = blockstart
     for _ in range(0,6):
-        week_days = parse_day(sheet, cur_start_row)
-        week.extend(week_days)
-        cur_start_row += blocksize
+        try:
+            week_days = parse_day(sheet, cur_start_row)
+            week.extend(week_days)
+            cur_start_row += blocksize
+        except Exception as e:
+            print(e)
     
     return week
 
@@ -99,12 +102,15 @@ def parse_session_timetable(sheet: Worksheet)->List[Session]:
     exams = {}
     max_ses_rows = 40
     for row in range(4, max_ses_rows):
-        date = str(sheet.cell(row, 1).value) + ' ' + str(sheet.cell(row, 2).value)
-        data = sheet.cell(row, 3).value
-        if data != None:
-            # print(dt, data.replace('\n', ' '))
-            date = date.split(" ")[1]
-            exams[date] = data.replace('\n', ' ')[:len(data)//2]
+        try:
+            date = str(sheet.cell(row, 1).value) + ' ' + str(sheet.cell(row, 2).value)
+            data = sheet.cell(row, 3).value
+            if data != None:
+                # print(dt, data.replace('\n', ' '))
+                date = date.split(" ")[1]
+                exams[date] = data.replace('\n', ' ')[:len(data)//2]
+        except Exception as e:
+            print(e)
     ret.append(Session(addition, exams))
     return ret
             
